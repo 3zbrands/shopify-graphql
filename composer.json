@@ -1,0 +1,37 @@
+{
+    "name": "3zbrands/shopify-graphql",
+    "description": "A Shopify GraphQL SDK for Laravel",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "moneyphp/money": "^4.5",
+        "saloonphp/laravel-plugin": "^3.5",
+        "saloonphp/saloon": "^3.9"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.20",
+        "laravel/pint": "^1.2",
+        "spatie/ray": "^1.28"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Zzz\\ShopifyGraphql\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Laura Tonning",
+            "email": "tonning@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

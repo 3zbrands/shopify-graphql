@@ -1,0 +1,106 @@
+<?php
+
+namespace Zzz\ShopifyGraphql\Requests\Cart\Traits;
+
+trait CommonQueryFields
+{
+    public function commonCartFields(): string
+    {
+        return <<<GRAPHQL
+            id
+            attributes {
+                {$this->attribute()}
+            }
+            lines(first: 200) {
+                edges {
+                    node {
+                        {$this->commonCartLineFields()}
+                    }
+                }
+            }
+            discountCodes {
+                applicable
+                code
+            }
+            discountAllocations {
+                discountedAmount {
+                    {$this->moneyV2()}
+                }
+            }
+            totalQuantity
+            cost {
+                subtotalAmount {
+                    {$this->moneyV2()}
+                }
+                totalTaxAmount {
+                    {$this->moneyV2()}
+                }
+                totalAmount {
+                    {$this->moneyV2()}
+                }
+            }
+            note
+            checkoutUrl
+            createdAt
+            updatedAt
+        GRAPHQL;
+    }
+
+    public function commonCartLineFields(): string
+    {
+        return <<<GRAPHQL
+            id
+            quantity
+            attributes {
+                {$this->attribute()}
+            }
+            cost {
+                amountPerQuantity {
+                    {$this->moneyV2()}
+                }
+                subtotalAmount {
+                    {$this->moneyV2()}
+                }
+                totalAmount {
+                    {$this->moneyV2()}
+                }
+            }
+            discountAllocations {
+                discountedAmount {
+                    {$this->moneyV2()}
+                }
+            }
+            merchandise {
+                ... on ProductVariant {
+                    id
+                    title
+                    sku
+                }
+            }
+            quantity
+        GRAPHQL;
+    }
+
+    public function commonUserErrorsFields(): string
+    {
+        return <<<GRAPHQL
+            message
+        GRAPHQL;
+    }
+
+    private function moneyV2(): string
+    {
+        return <<<GRAPHQL
+            amount
+            currencyCode
+        GRAPHQL;
+    }
+
+    private function attribute(): string
+    {
+        return <<<GRAPHQL
+            key
+            value
+        GRAPHQL;
+    }
+}
