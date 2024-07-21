@@ -29,7 +29,7 @@ abstract class Request extends \Saloon\Http\Request implements HasBody
         return '';
     }
 
-    private function convertArrayToGraphQlSyntax($fields): string
+    public function convertArrayToGraphQlSyntax($fields): string
     {
         return Str::of(json_encode($fields, JSON_PRETTY_PRINT))
             ->replaceMatches('~"\d+":\s~', '')
