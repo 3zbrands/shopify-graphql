@@ -8,12 +8,19 @@ use Illuminate\Support\Collection;
 class CartLinesResponse implements Iterator
 {
     public readonly Collection $all;
+    public readonly Collection $components;
 
     private int $position = 0;
 
-    public function __construct(protected ?array $cartLines = [])
+    public function __construct(protected ?array $cartLines = [], protected ?array $nodes = [])
     {
-        $this->all = collect($this->cartLines)->mapInto(CartLineResponse::class);
+        $this->all = collect($this->cartLines)->map(function (array $cartLine) {
+            $cartLineNodes = collect($this->nodes)->firstWhere(function (array $node) use ($cartLine) {
+                return $node['id'] === $cartLine['node']['id'];
+            });
+
+            return new CartLineResponse($cartLine, $cartLineNodes['lineComponents'] ?? []);
+        });
     }
 
     public function findByProductVariantId($id): ?CartLineResponse

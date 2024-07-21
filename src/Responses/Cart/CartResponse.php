@@ -31,7 +31,7 @@ class CartResponse
 
     public function lines(): CartLinesResponse
     {
-        return new CartLinesResponse($this->json('lines.edges'));
+        return new CartLinesResponse($this->json('lines.edges'), $this->json('lines.nodes'));
     }
 
     public function totalQuantity(): int
@@ -45,6 +45,25 @@ class CartResponse
             ->map(function (array $discountCode) {
                 return new DiscountCodeResponse($discountCode['code'], $discountCode['applicable']);
             });
+    }
+
+    public function discountAllocations(): Collection
+    {
+        return collect($this->json('discountAllocations'))
+            ->map(function (array $discountAllocation) {
+                return new DiscountAllocationResponse(
+                    $this->dollarsAsFloatToCent($discountAllocation['discountedAmount']['amount']),
+                    $discountAllocation['discountedAmount']['currencyCode'],
+                );
+            });
+    }
+
+    public function totalDiscountAllocationAmount(): Money
+    {
+        return $this->discountAllocations()
+            ->reduce(function (Money $carry, DiscountAllocationResponse $discountAllocation) {
+                return $carry->add($discountAllocation->toMoney());
+            }, new Money(0, $this->getCurrency()));
     }
 
     public function subtotalAmount(): Money

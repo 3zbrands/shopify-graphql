@@ -11,7 +11,44 @@ trait CommonQueryFields
             attributes {
                 {$this->attribute()}
             }
-            lines(first: 200) {
+            lines(first: 250) {
+                nodes {
+                    id
+                    ... on ComponentizableCartLine {
+                        lineComponents {
+                            id
+                            quantity
+                            attributes {
+                                {$this->attribute()}
+                            }
+                            discountAllocations {
+                                discountedAmount {
+                                    {$this->moneyV2()}
+                                }
+                            }
+                            cost {
+                                amountPerQuantity {
+                                    {$this->moneyV2()}
+                                }
+                                subtotalAmount {
+                                    {$this->moneyV2()}
+                                }
+                                totalAmount {
+                                    {$this->moneyV2()}
+                                }
+                            }
+                            merchandise {
+                                ... on ProductVariant {
+                                    title
+                                    product {
+                                        title
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    quantity
+                }
                 edges {
                     node {
                         {$this->commonCartLineFields()}

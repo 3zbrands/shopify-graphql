@@ -15,7 +15,7 @@ class CartLineResponse
     public readonly int $quantity;
     public readonly array $attributes;
 
-    public function __construct(protected array $edge = [])
+    public function __construct(protected array $edge = [], protected array $lineComponents = [])
     {
         $this->id = $this->edge['node']['id'];
         $this->quantity = $this->edge['node']['quantity'];
@@ -102,5 +102,10 @@ class CartLineResponse
     public function productVariantId(): string
     {
         return $this->node()['merchandise']['id'] ?? '';
+    }
+
+    public function lineComponents(): array
+    {
+        return $this->lineComponents;
     }
 }
