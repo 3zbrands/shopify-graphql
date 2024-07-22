@@ -29,6 +29,19 @@ abstract class Request extends \Saloon\Http\Request implements HasBody
         return '';
     }
 
+    public function convertArrayWithKeysToGraphQlSyntax(array $attributes, array $enums = []): string
+    {
+        $input = Str::of('');
+
+        foreach ($attributes as $key => $value) {
+            $input = in_array($key, $enums)
+                ? $input->append("{$key}: {$value}, ")
+                : $input->append("{$key}: \"{$value}\", ");
+        }
+
+        return $input->trim()->replaceLast(',', '')->start('{')->finish('}')->toString();
+    }
+
     public function convertArrayToGraphQlSyntax($fields): string
     {
         return Str::of(json_encode($fields, JSON_PRETTY_PRINT))

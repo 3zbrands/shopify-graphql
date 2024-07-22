@@ -14,13 +14,7 @@ class CreateProduct extends MutationRequest
 
     public function graphQuery(): string
     {
-        $input = Str::of('');
-
-        foreach ($this->attributes as $key => $value) {
-            $input = $input->append("{$key}: \"{$value}\", ");
-        }
-
-        $input = $input->trim()->replaceLast(',', '')->start('{')->finish('}')->toString();
+        $input = $this->convertArrayWithKeysToGraphQlSyntax($this->attributes);
 
         return <<<QUERY
             productCreate(

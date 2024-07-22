@@ -5,6 +5,7 @@ namespace Zzz\ShopifyGraphql;
 use Exception;
 use Saloon\Http\Connector;
 use Zzz\ShopifyGraphql\Resources\Cart;
+use Zzz\ShopifyGraphql\Resources\Files;
 use Zzz\ShopifyGraphql\Enums\ApiVersion;
 use Saloon\Http\Auth\HeaderAuthenticator;
 use Zzz\ShopifyGraphql\Resources\Products;
@@ -74,5 +75,12 @@ class Shopify extends Connector
         $this->connectToAdmin();
 
         return new Products($this);
+    }
+
+    public function files(): Files
+    {
+        $this->connectToAdmin();
+
+        return new Files($this);
     }
 }

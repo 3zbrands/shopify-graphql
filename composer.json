@@ -4,6 +4,7 @@
     "type": "library",
     "require": {
         "php": "^8.1",
+        "ext-fileinfo": "*",
         "moneyphp/money": "^4.5",
         "saloonphp/laravel-plugin": "^3.5",
         "saloonphp/saloon": "^3.9"
