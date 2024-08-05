@@ -71,7 +71,7 @@ class Products
         if ($response->json('data.productByHandle') === null) {
             throw new GraphQlException('Product not found');
         }
-        
+
         return new ProductResponse($response->json('data.productByHandle'));
     }
 }

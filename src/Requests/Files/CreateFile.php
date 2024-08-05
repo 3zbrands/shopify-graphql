@@ -4,7 +4,7 @@ namespace Zzz\ShopifyGraphql\Requests\Files;
 
 use Zzz\ShopifyGraphql\Requests\MutationRequest;
 
-class FileCreate extends MutationRequest
+class CreateFile extends MutationRequest
 {
     public function __construct(protected string $url)
     {
