@@ -20,7 +20,7 @@ class GetProductByHandle extends QueryRequest
         return <<<QUERY
             productByHandle(handle: "$this->productHandle") {
                 id
-                variants(first: 1) {
+                variants(first: 250) {
                   edges {
                     node {
                       id
