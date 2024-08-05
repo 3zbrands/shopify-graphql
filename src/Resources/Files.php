@@ -11,7 +11,7 @@ use Zzz\ShopifyGraphql\Enums\FileStatus;
 use GuzzleHttp\Exception\GuzzleException;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Exceptions\Request\RequestException;
-use Zzz\ShopifyGraphql\Requests\Files\FileCreate;
+use Zzz\ShopifyGraphql\Requests\Files\CreateFile;
 use Zzz\ShopifyGraphql\Exceptions\GraphQlException;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Zzz\ShopifyGraphql\Trait\ValidateGraphQlResponse;
@@ -43,7 +43,7 @@ class Files
 
     public function uploadFromUrl(string $url, bool $waitForFileToBeReady = true)
     {
-        $response = $this->api->send(new FileCreate($url));
+        $response = $this->api->send(new CreateFile($url));
 
         $this->validate($response);
 
@@ -87,7 +87,7 @@ class Files
         string|null $searchQuery = null,
     )
     {
-        $response = $this->api->send(new \Zzz\ShopifyGraphql\Requests\Files\Files(
+        $response = $this->api->send(new \Zzz\ShopifyGraphql\Requests\Files\GetFiles(
             $first,
             $last,
             $reverse,

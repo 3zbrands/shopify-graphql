@@ -9,6 +9,7 @@ use Zzz\ShopifyGraphql\Resources\Files;
 use Zzz\ShopifyGraphql\Enums\ApiVersion;
 use Saloon\Http\Auth\HeaderAuthenticator;
 use Zzz\ShopifyGraphql\Resources\Products;
+use Zzz\ShopifyGraphql\Resources\Collections;
 
 class Shopify extends Connector
 {
@@ -70,11 +71,11 @@ class Shopify extends Connector
         return new Cart($this);
     }
 
-    public function products(): Products
+    public function collections(): Collections
     {
         $this->connectToAdmin();
 
-        return new Products($this);
+        return new Collections($this);
     }
 
     public function files(): Files
@@ -82,5 +83,12 @@ class Shopify extends Connector
         $this->connectToAdmin();
 
         return new Files($this);
+    }
+
+    public function products(): Products
+    {
+        $this->connectToAdmin();
+
+        return new Products($this);
     }
 }

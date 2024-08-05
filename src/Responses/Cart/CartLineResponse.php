@@ -104,6 +104,11 @@ class CartLineResponse
         return $this->node()['merchandise']['id'] ?? '';
     }
 
+    public function hasLineComponents(): bool
+    {
+        return ! empty($this->lineComponents);
+    }
+
     public function lineComponents(): array
     {
         return $this->lineComponents;

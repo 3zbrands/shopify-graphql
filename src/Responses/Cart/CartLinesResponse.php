@@ -25,7 +25,17 @@ class CartLinesResponse implements Iterator
 
     public function findByProductVariantId($id): ?CartLineResponse
     {
-        return $this->all->first(fn (CartLineResponse $line) => $line->productVariantId() == "gid://shopify/ProductVariant/$id");
+        return $this->all->first(function (CartLineResponse $line) use ($id) {
+            if ($line->productVariantId() == "gid://shopify/ProductVariant/$id") {
+                return $line;
+            };
+
+            if ($line->hasLineComponents()) {
+                return collect($line->lineComponents())->contains(function (array $lineComponent) use ($id) {
+                    return $lineComponent['merchandise']['id'] === "gid://shopify/ProductVariant/$id";
+                });
+            }
+        });
     }
 
     public function findByGid($gid): ?CartLineResponse

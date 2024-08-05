@@ -39,8 +39,11 @@ trait CommonQueryFields
                             }
                             merchandise {
                                 ... on ProductVariant {
+                                    id
                                     title
+                                    sku
                                     product {
+                                        id
                                         title
                                     }
                                 }
@@ -116,6 +119,31 @@ trait CommonQueryFields
             }
             quantity
         GRAPHQL;
+    }
+
+    public function commonProductFields(): string
+    {
+        return <<<GRAPHQL
+            id
+            handle
+            productType
+            status
+            title
+            vendor
+            updatedAt
+        GRAPHQL;
+
+    }
+
+    public function commonCollectionFields(): string
+    {
+        return <<<GRAPHQL
+            id
+            title
+            handle
+            updatedAt
+        GRAPHQL;
+
     }
 
     public function commonUserErrorsFields(): string
