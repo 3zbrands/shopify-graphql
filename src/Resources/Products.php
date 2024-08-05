@@ -68,10 +68,6 @@ class Products
 
         $this->validate($response);
 
-        if ($response->json('data.productByHandle') === null) {
-            throw new GraphQlException('Product not found');
-        }
-
-        return new ProductResponse($response->json('data.productByHandle'));
+        return new ProductResponse($response->json('data.productByHandle') ?? []);
     }
 }
