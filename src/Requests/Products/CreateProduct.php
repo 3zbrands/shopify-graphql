@@ -23,6 +23,13 @@ class CreateProduct extends MutationRequest
                 product {
                     title
                     id
+                    variants(first: 1) {
+                      edges {
+                        node {
+                          id
+                        }
+                      }
+                    }
                 }
                 userErrors {
                     message

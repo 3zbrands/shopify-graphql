@@ -10,6 +10,7 @@ use Saloon\Exceptions\Request\RequestException;
 use Zzz\ShopifyGraphql\Requests\Products\GetProduct;
 use Zzz\ShopifyGraphql\Exceptions\GraphQlException;
 use Saloon\Exceptions\Request\FatalRequestException;
+use Zzz\ShopifyGraphql\Requests\Products\GetProductByHandle;
 use Zzz\ShopifyGraphql\Trait\ValidateGraphQlResponse;
 use Zzz\ShopifyGraphql\Requests\Products\CreateProduct;
 use Zzz\ShopifyGraphql\Responses\Products\ProductResponse;
@@ -53,5 +54,24 @@ class Products
         $this->validate($response);
 
         return new ProductResponse($response->json('data.product'));
+    }
+
+    /**
+     * @throws FatalRequestException
+     * @throws RequestException
+     * @throws GraphQlException
+     * @throws JsonException
+     */
+    public function getByHandle(string $productHandle): ProductResponse
+    {
+        $response = $this->api->send(new GetProductByHandle($productHandle));
+
+        $this->validate($response);
+
+        if ($response->json('data.productByHandle') === null) {
+            throw new GraphQlException('Product not found');
+        }
+        
+        return new ProductResponse($response->json('data.productByHandle'));
     }
 }

@@ -29,4 +29,9 @@ class ProductResponse
     {
         return $this->json('id');
     }
+
+    public function firstVariantId(): string|null
+    {
+        return $this->json('variants.edges.0.node.id');
+    }
 }
