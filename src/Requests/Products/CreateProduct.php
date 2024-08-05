@@ -23,7 +23,7 @@ class CreateProduct extends MutationRequest
                 product {
                     title
                     id
-                    variants(first: 1) {
+                    variants(first: 250) {
                       edges {
                         node {
                           id
