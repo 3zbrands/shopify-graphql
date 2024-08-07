@@ -57,7 +57,7 @@ class Collections
 
             $this->validate($response);
 
-            return new CollectionResponse($response->json('data.collection'));
+            return new CollectionResponse($response->json('data.collection') ?? []);
         }
 
         $response = $this->api->send(new GetCollections(
