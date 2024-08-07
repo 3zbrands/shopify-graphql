@@ -3,11 +3,14 @@
 namespace Zzz\ShopifyGraphql\Resources;
 
 use Throwable;
+use Exception;
 use JsonException;
 use Saloon\Http\Connector;
 use Zzz\ShopifyGraphql\Requests\Cart\GetCart;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Exceptions\Request\RequestException;
+use Zzz\ShopifyGraphql\Requests\Cart\UpdateNote;
+use Zzz\ShopifyGraphql\Requests\Cart\UpdateAttributes;
 use Zzz\ShopifyGraphql\Responses\Cart\CartLineResponse;
 use Zzz\ShopifyGraphql\Requests\Cart\CreateCart;
 use Zzz\ShopifyGraphql\Responses\Cart\CartLinesResponse;
@@ -144,5 +147,45 @@ class Cart
         $this->validate($response);
 
         return new CartResponse($response->json('data.cartDiscountCodesUpdate.cart'));
+    }
+
+    /**
+     * @throws FatalRequestException
+     * @throws GraphQlException
+     * @throws RequestException
+     * @throws JsonException
+     * @throws Exception
+     */
+    public function updateNote(string|CartResponse $cartId, string $note): CartResponse
+    {
+        if ($cartId instanceof CartResponse) {
+            $cartId = $cartId->id();
+        }
+
+        $response = $this->api->send(new UpdateNote($cartId, $note));
+
+        $this->validate($response);
+
+        return new CartResponse($response->json('data.cartNoteUpdate.cart'));
+    }
+
+    /**
+     * @throws FatalRequestException
+     * @throws GraphQlException
+     * @throws RequestException
+     * @throws JsonException
+     * @throws Exception
+     */
+    public function updateAttributes(string|CartResponse $cartId, array $attributes): CartResponse
+    {
+        if ($cartId instanceof CartResponse) {
+            $cartId = $cartId->id();
+        }
+
+        $response = $this->api->send(new UpdateAttributes($cartId, $attributes));
+
+        $this->validate($response);
+
+        return new CartResponse($response->json('data.cartAttributesUpdate.cart'));
     }
 }
