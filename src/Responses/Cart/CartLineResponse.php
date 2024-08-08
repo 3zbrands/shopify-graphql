@@ -59,6 +59,13 @@ class CartLineResponse
 
     public function subtotal(): Money
     {
+        if ($this->hasLineComponents()) {
+            return new Money(
+                $this->lineComponentsTotalDiscountAmount(),
+                $this->currency()
+            );
+        }
+
         return new Money(
             $this->dollarsAsFloatToCent($this->node()['cost']['subtotalAmount']['amount']),
             new Currency($this->node()['cost']['subtotalAmount']['currencyCode'])
@@ -80,6 +87,16 @@ class CartLineResponse
 
     public function totalDiscountAmount(): Money
     {
+        if ($this->hasLineComponents()) {
+            // Calculate the discount amount
+            $discountAmount = $this->lineComponentsTotalDiscountAmount() - $this->dollarsAsFloatToCent($this->node()['cost']['totalAmount']['amount']);
+
+            return new Money(
+                $discountAmount,
+                $this->currency()
+            );
+        }
+
         return collect($this->node()['discountAllocations'])
             ->reduce(function (Money $carry, $discountAllocation) {
                 $discount = new Money(
@@ -112,5 +129,23 @@ class CartLineResponse
     public function lineComponents(): array
     {
         return $this->lineComponents;
+    }
+
+    public function lineComponentDiscountValue(): int
+    {
+        $firstLineComponentAttributes = $this->lineComponents()[0]['attributes'];
+        $firstLineComponentDiscount = collect($firstLineComponentAttributes)
+            ->first(fn (array $attribute) => array_search('_bundlePercentageDecrease', $attribute));
+
+        return $firstLineComponentDiscount['value'];
+    }
+
+    public function lineComponentsTotalDiscountAmount(): int
+    {
+        // Ensure discount rate is in decimal form
+        $discountRateDecimal =  $this->lineComponentDiscountValue() / 100;
+
+        // return the original price
+        return $this->dollarsAsFloatToCent($this->node()['cost']['totalAmount']['amount']) / (1 - $discountRateDecimal);
     }
 }
