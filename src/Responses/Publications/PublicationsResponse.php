@@ -15,7 +15,7 @@ class PublicationsResponse
         });
     }
 
-    public function getPublicationByName(string $name): PublicationResponse
+    public function getPublicationByName(string $name): PublicationResponse|null
     {
         return $this->all->first(fn (PublicationResponse $publication) => $publication->name() === $name);
     }
