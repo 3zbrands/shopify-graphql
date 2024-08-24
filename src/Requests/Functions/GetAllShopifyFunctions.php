@@ -1,14 +1,16 @@
 <?php
 
-namespace Zzz\ShopifyGraphql\Requests\ShopifyFunctions;
+namespace Zzz\ShopifyGraphql\Requests\Functions;
 
 use Exception;
-use Zzz\ShopifyGraphql\Requests\QueryRequest;
+use Zzz\ShopifyGraphql\Trait\HasEdges;
+use Zzz\ShopifyGraphql\Requests\QueryFunctionRequest;
 use Zzz\ShopifyGraphql\Requests\Cart\Traits\CommonQueryFields;
 
-class GetAllShopifyFunctions extends QueryRequest
+class GetAllShopifyFunctions extends QueryFunctionRequest
 {
     use CommonQueryFields;
+    use HasEdges;
 
     public function __construct()
     {
@@ -18,7 +20,6 @@ class GetAllShopifyFunctions extends QueryRequest
     public function graphQuery(): string
     {
         return <<<QUERY
-            functions {
               shopifyFunctions(first: 250, apiType: "cart_transform") {
                 edges {
                   node {
@@ -32,7 +33,6 @@ class GetAllShopifyFunctions extends QueryRequest
                   }
                 }
               }
-            }
         QUERY;
     }
 }

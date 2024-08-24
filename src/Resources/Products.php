@@ -67,7 +67,7 @@ class Products
         $response = $this->api->send(new GetProductByHandle($productHandle));
 
         $this->validate($response);
-        dd('Testing this stupid thing.');
+
         return new ProductResponse($response->json('data.productByHandle') ?? []);
     }
 }

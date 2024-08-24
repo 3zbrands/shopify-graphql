@@ -1,10 +1,10 @@
 <?php
 
-namespace Zzz\ShopifyGraphql\Responses\ShopifyFunctions;
+namespace Zzz\ShopifyGraphql\Responses\Functions;
 
 use Illuminate\Support\Arr;
 
-class ShopifyFunctionResponse
+class FunctionResponse
 {
     public function __construct(readonly public array $response)
     {
@@ -23,7 +23,7 @@ class ShopifyFunctionResponse
 
     public function cartTransformFunctionId(): string|null
     {
-        return $this->json('shopifyFunctions.edges.node.id');
+        return $this->json('data.shopifyFunctions.edges.node.id');
     }
 
     public function __get(string $name)

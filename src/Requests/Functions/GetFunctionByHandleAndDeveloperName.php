@@ -1,6 +1,6 @@
 <?php
 
-namespace Zzz\ShopifyGraphql\Requests\ShopifyFunctions;
+namespace Zzz\ShopifyGraphql\Requests\Functions;
 
 use Exception;
 use Zzz\ShopifyGraphql\Requests\QueryRequest;

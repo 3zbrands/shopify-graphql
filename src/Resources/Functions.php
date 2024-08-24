@@ -6,15 +6,17 @@ use Throwable;
 use JsonException;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
+// use Zzz\ShopifyGraphql\Requests\Functions\EnableShopifyFunction;
+use Zzz\ShopifyGraphql\Requests\Functions\GetAllShopifyFunctions;
+// use Zzz\ShopifyGraphql\Requests\Functions\GetFunctionByHandleAndDeveloperName;
+use Zzz\ShopifyGraphql\Responses\Functions\FunctionResponse;
+use Zzz\ShopifyGraphql\Responses\Functions\FunctionsResponse;
 use Saloon\Exceptions\Request\RequestException;
 use Zzz\ShopifyGraphql\Exceptions\GraphQlException;
 use Saloon\Exceptions\Request\FatalRequestException;
-use Zzz\ShopifyGraphql\Requests\ShopifyFunctions\GetAllShopifyFunctions;
 use Zzz\ShopifyGraphql\Trait\ValidateGraphQlResponse;
-use Zzz\ShopifyGraphql\Responses\ShopifyFunctions\ShopifyFunctionResponse;
-use Zzz\ShopifyGraphql\Responses\Cart\CartResponse as CartResponse;
 
-class ShopifyFunctions
+class Functions
 {
     use AlwaysThrowOnErrors;
     use ValidateGraphQlResponse;
@@ -45,13 +47,13 @@ class ShopifyFunctions
      * @throws GraphQlException
      * @throws JsonException
      */
-    public function getAllShopifyFunctions(): ShopifyFunctionResponse
+    public function getAllShopifyFunctions(): FunctionsResponse
     {
         $response = $this->api->send(new GetAllShopifyFunctions());
 
         $this->validate($response);
 
-        return new ShopifyFunctionResponse($response->json('data.shopifyFunctions'));
+        return new FunctionsResponse($response->json('data.shopifyFunctions'));
     }
 
     /**
