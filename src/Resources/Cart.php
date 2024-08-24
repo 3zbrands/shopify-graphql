@@ -22,6 +22,7 @@ use Zzz\ShopifyGraphql\Requests\Cart\RemoveCartLines;
 use Zzz\ShopifyGraphql\Trait\ValidateGraphQlResponse;
 use Zzz\ShopifyGraphql\Responses\Cart\CartResponse as CartResponse;
 use Zzz\ShopifyGraphql\Requests\Cart\UpdateCartDiscountCodes;
+use Zzz\ShopifyGraphql\Exceptions\SpecificCartDoesNotExistException;
 use Zzz\ShopifyGraphql\Requests\Models\CartLineRequest as CartLineRequest;
 
 class Cart
@@ -100,7 +101,11 @@ class Cart
 
         $response = $this->api->send(new AddCartLines($cartId, $lines));
 
-        $this->validate($response, 'data.cartLinesAdd.userErrors');
+        try {
+            $this->validate($response, 'data.cartLinesAdd.userErrors');
+        } catch (SpecificCartDoesNotExistException) {
+            return $this->addLines($this->create(), $lines);
+        }
 
         return new CartResponse($response->json('data.cartLinesAdd.cart'));
     }

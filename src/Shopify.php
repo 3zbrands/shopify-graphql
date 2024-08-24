@@ -11,6 +11,7 @@ use Saloon\Http\Auth\HeaderAuthenticator;
 use Zzz\ShopifyGraphql\Resources\Products;
 use Zzz\ShopifyGraphql\Resources\Collections;
 use Zzz\ShopifyGraphql\Resources\ShopifyFunctions;
+use Zzz\ShopifyGraphql\Resources\Publications;
 
 class Shopify extends Connector
 {
@@ -91,6 +92,13 @@ class Shopify extends Connector
         $this->connectToAdmin();
 
         return new Products($this);
+    }
+
+    public function publications(): Publications
+    {
+        $this->connectToAdmin();
+
+        return new Publications($this);
     }
 
     public function shopifyFunctions(): ShopifyFunctions
