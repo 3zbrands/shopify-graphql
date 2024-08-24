@@ -15,9 +15,11 @@ class FunctionsResponse implements Iterator, ArrayAccess
 
     public function __construct(public readonly array $functions = [])
     {
+        dd($this->functions);
         $this->all = collect($this->functions['edges'])->map(function (array $function) {
-            dump($function);
+
             return new FunctionResponse($function);
+
         });
     }
 

@@ -53,21 +53,6 @@ class Functions
 
         $this->validate($response);
 
-        return new FunctionsResponse($response->json('data.shopifyFunctions'));
+        return new FunctionsResponse($response->json('data'));
     }
-
-    /**
-     * @throws FatalRequestException
-     * @throws RequestException
-     * @throws GraphQlException
-     * @throws JsonException
-     */
-      // public function getByHandleAndDeveloperName(string $functionHandle, string $developerName): ShopifyFunctionResponse
-      // {
-      //     $response = $this->api->send(new GetProductByHandle($productHandle));
-
-      //     $this->validate($response);
-
-      //     return new ProductResponse($response->json('data.productByHandle') ?? []);
-      // }
 }

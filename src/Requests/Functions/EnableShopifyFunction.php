@@ -18,7 +18,7 @@ class EnableShopifyFunction extends MutationRequest
     public function graphQuery(): string
     {
         return <<<QUERY
-          cartTransformCreate(functionId: "$this->functionId") {
+          cartTransformCreate(functionId: "8de29a31-c027-4fe7-b14d-9445d26872c3") {
             cartTransform {
               id
             }

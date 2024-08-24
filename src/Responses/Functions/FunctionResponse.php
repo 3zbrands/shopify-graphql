@@ -2,11 +2,12 @@
 
 namespace Zzz\ShopifyGraphql\Responses\Functions;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
 class FunctionResponse
 {
-    public function __construct(readonly public array $response)
+    public function __construct(public readonly array $response)
     {
         //
     }
