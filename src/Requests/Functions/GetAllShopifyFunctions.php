@@ -18,7 +18,7 @@ class GetAllShopifyFunctions extends QueryRequest
     public function graphQuery(): string
     {
         return <<<QUERY
-              shopifyFunctions(first: 5, apiType: "cart_transform") {
+              shopifyFunctions(first: 250, apiType: "cart_transform") {
                 edges {
                   node {
                     id
