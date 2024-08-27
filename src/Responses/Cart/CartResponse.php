@@ -24,7 +24,7 @@ class CartResponse
         return Arr::get($this->response, $key);
     }
 
-    public function id(): string
+    public function id(): ?string
     {
         return $this->json('id');
     }

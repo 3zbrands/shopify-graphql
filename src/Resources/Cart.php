@@ -65,7 +65,7 @@ class Cart
 
         $this->validate($response);
 
-        return new CartResponse($response->json('data.cart'));
+        return new CartResponse($response->json('data.cart') ?: []);
     }
 
     /**
