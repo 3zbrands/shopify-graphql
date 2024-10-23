@@ -32,6 +32,11 @@ class CartLineResponse
         return $this->node()['id'];
     }
 
+    public function merchandiseId(): string
+    {
+        return $this->node()['merchandise']['id'];
+    }
+
     public function attributes(): Collection
     {
         return new Collection($this->node()['attributes'] ?? []);
