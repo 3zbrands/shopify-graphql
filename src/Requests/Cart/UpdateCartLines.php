@@ -3,6 +3,7 @@
 namespace Zzz\ShopifyGraphql\Requests\Cart;
 
 use Exception;
+use Illuminate\Support\Arr;
 use Zzz\ShopifyGraphql\Requests\MutationRequest;
 use Zzz\ShopifyGraphql\Requests\Models\CartLineRequest;
 use Zzz\ShopifyGraphql\Requests\Cart\Traits\CommonQueryFields;
@@ -14,8 +15,10 @@ class UpdateCartLines extends MutationRequest
     /**
      * @throws Exception
      */
-    public function __construct(protected $cartId, protected array $lines)
+    public function __construct(protected $cartId, protected array|CartLineRequest $lines)
     {
+        $this->lines = Arr::wrap($lines);
+
         foreach ($this->lines as $line) {
             if (! ($line instanceof CartLineRequest)) {
                 throw new Exception('Lines attribute must be a array of CartLine classes');

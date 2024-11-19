@@ -116,7 +116,7 @@ class Cart
      * @throws RequestException
      * @throws JsonException
      */
-    public function removeLines(string|CartResponse $cartId, array|CartLinesResponse $lines): CartResponse
+    public function removeLines(string|CartResponse $cartId, array|CartLinesResponse|CartLineRequest $lines): CartResponse
     {
         if ($cartId instanceof CartResponse) {
             $cartId = $cartId->id();
