@@ -66,6 +66,10 @@ class Files
         while ($currentTry <= $tries) {
             $file = $this->getById($response->id());
 
+            if ($file->status() === FileStatus::FAILED) {
+                throw new Exception('Failed to upload file');
+            }
+
             if ($file->status() === FileStatus::READY) {
                 return $file;
             }
