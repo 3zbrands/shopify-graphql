@@ -1,6 +1,6 @@
 <?php
 
-namespace Zzz\ShopifyGraphql\Requests\DiscountCodes;
+namespace Zzz\ShopifyGraphql\Requests\DiscountNodes;
 
 use Zzz\ShopifyGraphql\Trait\HasEdges;
 use Zzz\ShopifyGraphql\Requests\QueryRequest;

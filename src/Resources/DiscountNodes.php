@@ -6,9 +6,8 @@ namespace Zzz\ShopifyGraphql\Resources;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Zzz\ShopifyGraphql\Trait\ValidateGraphQlResponse;
-use Zzz\ShopifyGraphql\Requests\DiscountCodes\GetDiscountCodes;
-use Zzz\ShopifyGraphql\Requests\DiscountCodes\GetDiscountNodes;
-use Zzz\ShopifyGraphql\Requests\PriceRules\GetDiscountNode;
+use Zzz\ShopifyGraphql\Requests\DiscountNodes\GetDiscountNodes;
+use Zzz\ShopifyGraphql\Requests\DiscountNodes\GetDiscountNode;
 
 class DiscountNodes
 {
