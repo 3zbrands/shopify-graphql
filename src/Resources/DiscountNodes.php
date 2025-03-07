@@ -41,7 +41,7 @@ class DiscountNodes
 
         $this->validate($response);
 
-        return collect($response->json('data.codeDiscountNodes.edges.nodes'))
+        return collect($response->json('data.codeDiscountNodes.edges'))
             ->toArray();
     }
 }
