@@ -30,7 +30,6 @@ class GetDiscountNode extends QueryRequest
                       title
                       status
                       __typename
-                      title
                       startsAt
                       codes(first: 5) {
                         edges {
@@ -140,7 +139,7 @@ class GetDiscountNode extends QueryRequest
                               nodes {
                                 id
                               }
-                            },
+                            }
                             productVariants(first: 5) {
                               nodes {
                                 id
