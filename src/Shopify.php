@@ -11,6 +11,7 @@ use Saloon\Http\Auth\HeaderAuthenticator;
 use Zzz\ShopifyGraphql\Resources\Products;
 use Zzz\ShopifyGraphql\Resources\Collections;
 use Zzz\ShopifyGraphql\Resources\Publications;
+use Zzz\ShopifyGraphql\Resources\DiscountNodes;
 
 class Shopify extends Connector
 {
@@ -98,5 +99,12 @@ class Shopify extends Connector
         $this->connectToAdmin();
 
         return new Publications($this);
+    }
+
+    public function discountNodes(): DiscountNodes
+    {
+        $this->connectToAdmin();
+
+        return new DiscountNodes($this);
     }
 }
