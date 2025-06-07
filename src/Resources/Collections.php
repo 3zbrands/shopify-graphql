@@ -77,17 +77,17 @@ class Collections
     public function all()
     {
         $collections = $this->get(first: 250);
-        $cursor = $collections->all->last()?->cursor();
+        $cursor = collect($collections->collections['edges'] ?? [])->last()['cursor'] ?? null;
         $allCollections = $collections->all;
 
         while (! is_null($cursor)) {
             $collections = $this->get(first: 250, after: $cursor);
             $allCollections = $allCollections->merge($collections->all);
-            $cursor = $collections->all->last()?->cursor();
+            $cursor = collect($collections->collections['edges'] ?? [])->last()['cursor'] ?? null;
         }
 
         $allCollections = $allCollections->map(function (CollectionResponse $collection) {
-            return $collection->edge;
+            return $collection->edge['node'] ?? [];
         });
 
         return new CollectionsResponse(['edges' => $allCollections]);

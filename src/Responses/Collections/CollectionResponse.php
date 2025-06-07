@@ -14,22 +14,16 @@ class CollectionResponse implements Arrayable
 
     public function __get(string $name)
     {
-        return $this->edge['node'][$name] ?? null;
-    }
-
-    public function cursor(): string
-    {
-        return $this->edge['cursor'];
+        return $this->edge[$name] ?? null;
     }
 
     public function products()
     {
         return new ProductsResponse($this->edge['products'] ?? []);
-//        return $this->edge['products'] ?? [];
     }
 
     public function toArray()
     {
-        return $this->edge['node'];
+        return $this->edge;
     }
 }
