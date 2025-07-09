@@ -31,7 +31,7 @@ class GetDiscountNode extends QueryRequest
                       status
                       __typename
                       startsAt
-                      codes(first: 5) {
+                      codes(first: 250) {
                         edges {
                           node {
                             id
@@ -100,7 +100,7 @@ class GetDiscountNode extends QueryRequest
                       status
                       __typename
                       startsAt
-                      codes(first: 5) {
+                      codes(first: 250) {
                         edges {
                           node {
                             id
@@ -128,19 +128,19 @@ class GetDiscountNode extends QueryRequest
                             allItems
                           }
                           ... on DiscountCollections {
-                            collections(first: 5) {
+                            collections(first: 250) {
                               nodes {
                                 id
                               }
                             }
                           }
                           ... on DiscountProducts {
-                            products(first: 5) {
+                            products(first: 250) {
                               nodes {
                                 id
                               }
                             }
-                            productVariants(first: 5) {
+                            productVariants(first: 250) {
                               nodes {
                                 id
                               }
