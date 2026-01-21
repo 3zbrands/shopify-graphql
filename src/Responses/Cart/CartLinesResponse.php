@@ -70,6 +70,6 @@ class CartLinesResponse implements Iterator
 
     public function __call(string $method, $parameters)
     {
-        dd($method, $parameters);
+        return $this->all->{$method}(...$parameters);
     }
 }
