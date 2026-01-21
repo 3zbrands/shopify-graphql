@@ -104,6 +104,18 @@ class CartLineResponse
         );
     }
 
+    public function compareAtAmountPerQuantity(): Money
+    {
+        if (! isset($this->node()['cost']['compareAtAmountPerQuantity']['amount'])) {
+            return $this->amountPerQuantity();
+        }
+
+        return new Money(
+            $this->dollarsAsFloatToCent($this->node()['cost']['compareAtAmountPerQuantity']['amount']),
+            new Currency($this->node()['cost']['compareAtAmountPerQuantity']['currencyCode'])
+        );
+    }
+
     public function productVariantId(): string
     {
         return $this->node()['merchandise']['id'] ?? '';

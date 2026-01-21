@@ -30,6 +30,9 @@ trait CommonQueryFields
                                 amountPerQuantity {
                                     {$this->moneyV2()}
                                 }
+                                compareAtAmountPerQuantity {
+                                    {$this->moneyV2()}
+                                }
                                 subtotalAmount {
                                     {$this->moneyV2()}
                                 }
@@ -96,6 +99,9 @@ trait CommonQueryFields
             }
             cost {
                 amountPerQuantity {
+                    {$this->moneyV2()}
+                }
+                compareAtAmountPerQuantity {
                     {$this->moneyV2()}
                 }
                 subtotalAmount {
