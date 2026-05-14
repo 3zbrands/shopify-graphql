@@ -27,9 +27,7 @@ class UpdateCartDiscountCodes extends MutationRequest
         return <<<QUERY
             cartDiscountCodesUpdate(
                 cartId: "$this->cartId"
-                discountCodes: [
-                    "{$this->discountCodesToGraphQl()}"
-                ]
+                discountCodes: [{$this->discountCodesToGraphQl()}]
             ) {
                 cart {
                     {$this->commonCartFields()}
@@ -43,6 +41,8 @@ class UpdateCartDiscountCodes extends MutationRequest
 
     private function discountCodesToGraphQl(): string
     {
-        return implode(', ', $this->discountCodes);
+        return collect($this->discountCodes)
+            ->map(fn (string $code) => '"' . addslashes($code) . '"')
+            ->implode(', ');
     }
 }
