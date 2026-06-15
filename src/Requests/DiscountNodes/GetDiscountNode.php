@@ -17,10 +17,10 @@ class GetDiscountNode extends QueryRequest
 
   public function graphQuery(): string
   {
-    $titleFilter = sprintf('title:%s', addslashes($this->priceRuleTitle));
+    $titleFilter = sprintf('title:\"%s\"', addslashes($this->priceRuleTitle));
 
     return <<<QUERY
-            codeDiscountNodes(first: 1, query: "$titleFilter") {
+            codeDiscountNodes(query: "status:active AND $titleFilter", first: 25) {
               edges {
                 node {
                   id

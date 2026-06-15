@@ -42,6 +42,14 @@ class DiscountNodes
         $this->validate($response);
 
         return collect($response->json('data.codeDiscountNodes.edges'))
+            ->filter(fn (array $edge) => $this->edgeHasExactTitle($edge, (string) $title))
             ->toArray();
+    }
+
+    protected function edgeHasExactTitle(array $edge, string $discountTitle): bool
+    {
+        $candidateTitle = (string) data_get($edge, 'node.codeDiscount.title', '');
+
+        return strcasecmp($candidateTitle, $discountTitle) === 0;
     }
 }
